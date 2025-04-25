@@ -1,0 +1,20 @@
+    #test1.kv
+
+Screen:
+    id: scr_manager
+
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        size_hint: .7, .3
+        MDLabel:
+            id: label
+            text: "Hello World"
+            halign: "center"
+            font_size: "64pt"
+        MDRaisedButton:
+            id: click_me_btn
+            text: "Click Me"
+            size_hint: 1,.3
+            on_release:
+                app.hello_world()

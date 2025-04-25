@@ -1,0 +1,85 @@
+{% extends "base_template.html" %}
+{% block title %}CodeShare - New Post{% endblock %}
+{% block css %}
+  <style>
+    /* custom styles for the new post page */
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="container mt-5">
+    <h1>New Post</h1>
+    <hr>
+    <form id="post-form" method="post">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+      </div>
+        <div class="mb-3">
+            <label for="language" class="form-label">Language</label>
+            <select class="form-select" id="language" name="language" required>
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="java">Java</option>
+            <option value="c">C</option>
+            <option value="c++">C++</option>
+            <option value="c#">C#</option>
+            <option value="php">PHP</option>
+            <option value="sql">SQL</option>
+            <option value="bash">Bash</option>
+            <option value="ruby">Ruby</option>
+            <option value="swift">Swift</option>
+            <option value="kotlin">Kotlin</option>
+            <option value="go">Go</option>
+            <option value="r">R</option>
+            <option value="rust">Rust</option>
+            <option value="scala">Scala</option>
+            <option value="dart">Dart</option>
+            <option value="typescript">TypeScript</option>
+            <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="mb-3 d-none" id="other-language-input">
+            <label for="other-language" class="form-label">Other Language</label>
+            <input type="text" class="form-control" id="other-language" name="other-language">
+        </div>
+        <script>
+          const languageSelect = document.querySelector("#language");
+          const otherLanguageInput = document.querySelector("#other-language-input");
+
+          languageSelect.addEventListener("change", () => {
+            if (languageSelect.value === "other") {
+              otherLanguageInput.classList.remove("d-none");
+            } else {
+              otherLanguageInput.classList.add("d-none");
+            }
+          });
+        </script>
+        <script>
+  const form = document.querySelector('#post-form');
+  form.addEventListener('submit', (event) => {
+    // delay the form reset until after the form is submitted
+    setTimeout(() => {
+        if (languageSelect.value === "other") {
+        otherLanguageInput.classList.add("d-none");
+      }
+      form.reset();
+    }, 0);
+  });
+</script>
+        <div class="mb-3">
+        <label for="code" class="form-label">Code</label>
+        <textarea class="form-control" id="code" name="code" rows="8" required></textarea>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+      </div>
+        </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+ScreenManager:
+    LoginScreen:
+        name: "LoginScreen"
+    RegisterScreen:
+        name: "RegisterScreen"
+
+<LoginScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+
+        MDLabel:
+            size_hint: 1,.1
+            font_style:"H2"
+            text:"Login"
+            halign:"center"
+        MDTextField:
+            id: uname
+            hint_text:"Enter username or email"
+            icon_right:"account"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+        MDTextField:
+            id: pwd
+            hint_text:"Enter password"
+            icon_right:"eye-off"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+            password: True
+        MDBoxLayout:
+            size_hint: 1,.1
+            MDRaisedButton:
+                id : login
+                text:"Login"
+                size_hint: .5,1
+                md_bg_color: "#a8dadc"
+                pos_hint: {"center_x":.5}
+                on_press: root.login()
+            MDRaisedButton:
+                id : register
+                text:"Register"
+                size_hint: .5,1
+                md_bg_color: "#e63946"
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_press:
+                    root.manager.current = "RegisterScreen"
+                    root.manager.transition.direction = "left"
+
+<RegisterScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+
+        MDLabel:
+            size_hint: 1,.1
+            font_style:"H2"
+            text:"Register"
+            halign:"center"
+        MDTextField:
+            id: uname
+            hint_text:"Enter username"
+            icon_right:"account"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+        MDTextField:
+            id: email
+            hint_text:"Enter email"
+            icon_right:"email"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+        MDTextField:
+            id: pwd
+            hint_text:"Enter password"
+            icon_right:"eye-off"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+            password: True
+            helper_text: ""
+            helper_text_mode: "on_error"
+        MDTextField:
+            id: cpwd
+            hint_text:"Confirm password"
+            icon_right:"eye-off"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+            password: True
+            helper_text: "Passwords do not match"
+            helper_text_mode: "on_error"
+        MDBoxLayout:
+            size_hint: 1,.1
+            MDRaisedButton:
+                id : register
+                text:"Register"
+                size_hint: .5,1
+                md_bg_color: "#a8dadc"
+                pos_hint: {"center_x":.5}
+                on_press: root.register()

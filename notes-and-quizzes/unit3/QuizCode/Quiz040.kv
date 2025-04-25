@@ -1,0 +1,20 @@
+#2023-01-31 Quiz040
+MDScreen:
+    size:500,500
+    MDBoxLayout:
+        id: main_screen
+        orientation:"vertical"
+        md_bg_color: "#FFFFFF"
+        MDLabel:
+            id:name
+            text: "Bernard Lee"
+            halign: "center"
+            font_style: "H2"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+        MDRaisedButton:
+            id: changebutton
+            text: "Dark Mode"
+            pos_hint: {"center_x": 0.06, "center_y": 0.1}
+            on_release: app.change_appearance()

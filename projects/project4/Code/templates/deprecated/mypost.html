@@ -1,0 +1,131 @@
+<!-- new_post.html -->
+{% extends "base_template.html" %}
+{% block title %}CodeShare - My Posts{% endblock %}
+{% block css %}
+  <style>
+    /* custom CSS for the delete confirmation modal */
+    .modal-dialog {
+      margin-top: calc(25% - 0.5rem);
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div style="margin-top: 160px;">
+    <div class="container mt-3">
+      <h1>Your Profile</h1>
+            <div class="row">
+                <div class="col-md-2">
+                    <img class="avatar float-right rounded-circle" src="https://picsum.photos/200" alt="Avatar Placeholder">
+                </div>
+                <div class="col-md-4" style="padding-top: 20px">
+                    <p>Username: <strong>{{ user.username }}</strong></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Total number of Posts:</p>
+                            <p>Total number of Likes:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ stats[0] }}</p>
+                            <p>{{ stats[1] }}</p>
+                        </div>
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+      <i class="bi bi-file-lock-fill"></i> Change Password
+    </button>
+                        To show a modal when the change password button is pressed, you can add the following code to the "content" block of the HTML template file:
+
+html
+Copy code
+<div class="row mt-3">
+  <div class="col-md-6">
+    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+      <i class="bi bi-file-lock-fill"></i> Change Password
+    </button>
+  </div>
+</div>
+
+<!-- Change password modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ url_for('change_password') }}">
+          <div class="mb-3">
+            <label for="current_password" class="form-label">Current Password</label>
+            <input type="password" class="form-control" id="current_password" name="current_password" required>
+          </div>
+          <div class="mb-3">
+            <label for="new_password" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="new_password" name="new_password" required>
+          </div>
+          <div class="mb-3">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+            <hr>
+    {% if posts %}
+      {% for post in posts %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="card-title d-flex justify-content-between">
+              {{ post.title }}
+              <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ post.id }}">
+                <i class="bi bi-trash"></i>Delete
+              </button>
+            </h2>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.username }} - {{ post.datetime_posted }}</h6>
+            <p class="card-text">{{ post.content }}</p>
+            <pre><code class="language-{{ post.code_language }}">{{ post.code }}</code></pre>
+              <div class="card-footer">
+                            <h3> Was this helpful?
+                                <a href="/add_like/{{ post.id }}"><button type="button" class="btn btn-outline-success btn-sm w-auto">
+                                    <i class="bi bi-hand-thumbs-up"></i> +
+                                </button></a>
+                                <span class="badge bg-secondary">{{ post.like_count }}</span>
+                                <a href="/add_dislike/{{ post.id }}"><button type="button" class="btn btn-outline-danger btn-sm w-auto">
+                                    <i class="bi bi-hand-thumbs-down"></i> -
+                                </button></a>
+                            </h3>
+                        </div>
+          </div>
+        </div>
+        <!-- Delete confirmation modal for each post -->
+        <div class="modal fade" id="deleteModal-{{ post.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete the post "{{ post.title }}"?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+        <h1>You have not posted anything yet.</h1>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}

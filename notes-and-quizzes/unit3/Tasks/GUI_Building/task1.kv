@@ -1,0 +1,70 @@
+#GUI Building Task 1 - KivyMD
+Screen:
+    size: 500,500
+    MDBoxLayout:
+        id: main_box
+        orientation: 'vertical'
+        size_hint:1,.8
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        MDLabel:
+            text:"Currency Converter"
+            halign: 'center'
+            font_style: 'H3'
+            text_color: "#000000"
+            size_hint: 1, .2
+            pos_hint: {'center_x':0.5}
+
+        MDTextField:
+            id: original_in
+            hint_text: "Enter Amount in HKD"
+            helper_text: "Integers Only"
+            helper_text_mode: "on_focus"
+            icon_right: "cash"
+            icon_right_color: app.theme_cls.primary_color
+            pos_hint: {'center_x':0.5}
+            size_hint: .7, .1
+
+        MDBoxLayout:
+            id: currency_box
+            orientation: 'horizontal'
+            size_hint: 1, .4
+            pos_hint: {'center_x':0.5}
+            padding: 10
+            spacing: 10
+            MDLabel:
+                id : hint_label
+                text: "Click to convert"
+                halign: 'center'
+                font_style: 'Overline'
+                text_color: "#000000"
+                size_hint: .3, 1
+                pos_hint: {'center_x':0.2, 'center_y':0.5}
+            MDBoxLayout:
+                id: button_output_box
+                orientation:"vertical"
+                size_hint: .3, 1
+                MDBoxLayout:
+                    id: buttons_box
+                    orientation: "horizontal"
+                    size_hint: .7, 1
+                    pos_hint: {'center_x':0.7, 'center_y':0.9}
+                    MDChip:
+                        text: "USD"
+                        pos_hint: {"center_x": 0.25, "center_y": .25}
+                        on_press: app.convert_currency("USD")
+                        md_bg_color:"#002B41"
+                        text_color: "#FFFFFF"
+                    MDChip:
+                        text: "JPY"
+                        pos_hint: {"center_x": 0.75, "center_y": .25}
+                        on_press: app.convert_currency("JPY")
+                        md_bg_color:"#F20021"
+                MDLabel:
+                    id: final_label
+                    halign: 'center'
+                    font_style: 'H5'
+                    text_color: "#000000"
+                    size_hint: .3, 1
+                    pos_hint: {'center_x':0.6}
+                    font_size:80

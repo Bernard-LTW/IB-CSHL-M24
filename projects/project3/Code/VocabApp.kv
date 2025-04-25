@@ -1,0 +1,619 @@
+ScreenManager:
+    LoginScreen:
+        name: "LoginScreen"
+    RegisterScreen:
+        name: "RegisterScreen"
+    LandingScreen:
+        name: "LandingScreen"
+    ManageVocabScreen:
+        name: "ManageVocabScreen"
+    RandomVocabScreen:
+        name: "RandomVocabScreen"
+    VocabChooserScreen:
+        name: "VocabChooserScreen"
+    VocabCardScreen:
+        name: "VocabCardScreen"
+    PerVocabManageScreen:
+        name: "PerVocabManageScreen"
+
+<CustomButton@MDFillRoundFlatIconButton>:
+    text_color: 1, 1, 1, 1
+    md_bg_color: app.theme_cls.primary_color
+    _md_bg_color_disabled: app.theme_cls.disabled_hint_text_color
+    _md_bg_color_active: app.theme_cls.primary_light
+
+
+# Define custom color scheme
+<CustomTheme>:
+    primary_palette: "Blue"
+    accent_palette: "Green"
+    theme_style: "Light"
+    primary_hue: "500"
+
+<JapaneseTextField@MDTextField>:
+    font_name: 'Japanese.ttc'
+    input_type: 'text'
+
+<H2> :
+    font_name: "Japanese.ttc"
+
+<LoginScreen>:
+    FitImage:
+        source: "material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        padding: "10dp"
+
+        MDLabel:
+            size_hint: 1,.2
+            pos_hint: {"center_x":.5, "center_y":.5}
+            font_style: "H3"
+            font_name: "Japanese.ttc"
+            text: "Vocab App Login"
+            halign: "center"
+        MDBoxLayout:
+            size_hint: 1,.5
+            padding: 20
+            orientation: "vertical"
+            pos_hint: {"center_x":.5, "center_y":0.9}
+            MDTextField:
+                id: uname
+                hint_text: "Enter username"
+                helper_text: "Required"
+                helper_text_mode: "on_error"
+                icon_right: "account"
+                required: True
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5, "center_y": 1}
+
+            MDTextField:
+                id: pwd
+                hint_text: "Enter password"
+                helper_text: "Required"
+                helper_text_mode: "on_error"
+                icon_right: "lock"
+                password: True
+                required: True
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5, "center_y": 0}
+        MDBoxLayout:
+            size_hint: 1,.4
+            pos_hint: {"center_x":.5, "center_y":.1}
+            padding: 20
+            orientation: "vertical"
+            spacing: 20
+            MDFillRoundFlatIconButton:
+                id: login_button
+                text: "Login"
+                icon: "login"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.login()
+                md_bg_color: app.theme_cls.primary_color
+                size_hint_x: 0.8
+                disabled: not uname.text or not pwd.text
+                disabled_color: app.theme_cls.disabled_hint_text_color
+                elevation_normal: 12 if uname.text and pwd.text else 0
+                _md_bg_color_disabled: app.theme_cls.disabled_hint_text_color
+                _md_bg_color_active: app.theme_cls.primary_light
+
+            MDFillRoundFlatIconButton:
+                id: register_button
+                text: "Register"
+                icon: "account-plus"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.manager.current = "RegisterScreen"
+                md_bg_color: app.theme_cls.accent_color
+                size_hint_x: 0.8
+                elevation_normal: 12
+                _md_bg_color_active: app.theme_cls.accent_light
+
+
+
+<RegisterScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        padding: "10dp"
+
+        MDLabel:
+            size_hint: 1,.1
+            font_style:"H2"
+            text:"Register"
+            halign:"center"
+        MDTextField:
+            id: uname
+            hint_text:"Enter username"
+            icon_right:"account"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+        MDTextField:
+            id: email
+            hint_text:"Enter email"
+            icon_right:"email"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+        MDTextField:
+            id: pwd
+            hint_text:"Enter password"
+            icon_right:"eye-off"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+            password: True
+            helper_text: ""
+            helper_text_mode: "on_error"
+        MDTextField:
+            id: cpwd
+            hint_text:"Confirm password"
+            icon_right:"eye-off"
+            size_hint: .8,.1
+            pos_hint: {"center_x":.5}
+            password: True
+            helper_text: "Passwords do not match"
+            helper_text_mode: "on_error"
+
+        MDBoxLayout:
+            size_hint: 1,.1
+            spacing: "20dp"
+            padding: "10dp"
+            MDRaisedButton:
+                id : backtologin
+                text:"Back"
+                size_hint: .5,1
+                md_bg_color: app.theme_cls.accent_color
+                text_color: app.theme_cls.text_color
+                pos_hint: {"center_y":.5}
+                on_press:
+                    root.manager.current = "LoginScreen"
+                    root.manager.transition.direction = "right"
+            MDRaisedButton:
+                id : register
+                text:"Register"
+                size_hint: .5,1
+                md_bg_color: app.theme_cls.primary_color
+                text_color: app.theme_cls.text_color
+                pos_hint: {"center_y":.5}
+                on_press:
+                    root.register()
+
+
+<LandingScreen>:
+    FitImage:
+        source: "material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation: "vertical"
+        padding: "20dp"
+        md_bg_color: app.theme_cls.bg_light
+
+        MDLabel:
+            id: app_name
+            size_hint: 1,.1
+            font_style: "H4"
+            font_name: "Japanese.ttc"
+            text: "日本語 Vocabulary App"
+            halign: "center"
+
+        MDLabel:
+            id: welcome_banner
+            size_hint: 1,.1
+            font_style: "H5"
+            font_name: "Japanese.ttc"
+            text: "-"
+            halign: "center"
+
+        MDBoxLayout:
+            size_hint: 1,.7
+            orientation: "vertical"
+            padding: "20dp"
+            spacing: "10dp"
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: "20dp"
+                spacing: "10dp"
+                MDFloatingActionButton:
+                    id: managevocab
+                    icon: "book"
+                    halign: "center"
+                    md_bg_color: app.theme_cls.primary_color
+                    text_color: app.theme_cls.text_color
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release:
+                        root.manager.current = "ManageVocabScreen"
+                        root.manager.transition.direction = "left"
+
+                MDLabel:
+                    id: managevocab_label
+                    text: "Manage Vocab"
+                    halign: "left"
+                    pos_hint: {"right": 1, "center_y": .5}
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: "20dp"
+                spacing: "10dp"
+                MDFloatingActionButton:
+                    id: randomvocab
+                    icon: "dice-multiple"
+                    md_bg_color: app.theme_cls.primary_color
+                    text_color: app.theme_cls.text_color
+                    halign: "center"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release:
+                        root.manager.current = "RandomVocabScreen"
+                        root.manager.transition.direction = "left"
+
+                MDLabel:
+                    id: randomvocab_label
+                    text: "Random Vocab"
+                    halign: "left"
+                    pos_hint: {"right": 0.3, "center_y": .5}
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: "20dp"
+                spacing: "10dp"
+                MDFloatingActionButton:
+                    id: vocabchooser
+                    icon: "file-find"
+                    md_bg_color: app.theme_cls.primary_color
+                    text_color: app.theme_cls.text_color
+                    halign: "center"
+                    pos_hint: {"center_x": .3, "center_y": .5}
+                    on_release:
+                        root.manager.current = "VocabChooserScreen"
+                        root.manager.transition.direction = "left"
+
+                MDLabel:
+                    id: vocabchooser_label
+                    text: "Choose Vocab"
+                    halign: "left"
+                    pos_hint: {"right": 1, "center_y": .5}
+
+        MDBoxLayout:
+            size_hint: 1,.1
+            padding: "20dp"
+
+            MDFloatingActionButton:
+                id: logout
+                icon: "logout"
+                text: "Logout"
+                halign:"right"
+                md_bg_color: app.theme_cls.accent_color
+                text_color: app.theme_cls.text_color
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press:
+                    root.logout()
+
+<ManageVocabScreen>:
+    MDRaisedButton:
+        id : back
+        text:"Back"
+        size_hint: .2,.1
+        pos_hint: {"center_x":.1 , "center_y":.95}
+        md_bg_color: "#e63946"
+        on_press:
+            root.manager.current = "LandingScreen"
+            root.manager.transition.direction = "left"
+    MDBoxLayout:
+        pos_hint: {"center_x":.5, "center_y":.05}
+        size_hint: 1,.1
+        MDBoxLayout:
+            size_hint: .5,1
+            MDRaisedButton:
+                id : addvocab
+                text:"Add Vocab"
+                size_hint: 1,1
+                md_bg_color: "#a8dadc"
+                on_press:
+                    root.manager.current = "PerVocabManageScreen"
+                    root.manager.transition.direction = "left"
+            MDRaisedButton:
+                id : editvocab
+                text:"Edit Vocab"
+                size_hint: 1,1
+                md_bg_color: "#a8dadc"
+                on_press:
+                    root.enter_edit()
+            MDRaisedButton:
+                id : deletevocab
+                text:"Delete Vocab"
+                size_hint: 1,1
+                md_bg_color: "#a8dadc"
+                on_press:
+                    root.delete_vocab()
+
+<PerVocabManageScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDRaisedButton:
+        id : back
+        text:"Back"
+        size_hint: .1,.05
+        pos_hint: {"center_x":.1 , "center_y":.95}
+        md_bg_color: "#e63946"
+        on_press:
+            root.clear_fields()
+            root.manager.current = "ManageVocabScreen"
+            root.manager.transition.direction = "right"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        MDLabel:
+            id: vocab
+            size_hint: .5,1
+            pos_hint: {"center_x":.5}
+            text:"Add / Edit Vocab"
+            halign:"center"
+        MDTextField:
+            id: selected_lesson
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            hint_text:"Lesson"
+            helper_text: "Enter lesson number"
+            helper_text_mode: "on_error"
+            input_type: "number"
+        MDTextField:
+            id: selected_part
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            hint_text:"Part of Lesson"
+            helper_text: "Enter part number"
+            helper_text_mode: "on_error"
+            input_type: "number"
+        JapaneseTextField:
+            id: selected_hiragana
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            hint_text:"Hiragana"
+            helper_text: "Enter Hiragana of vocab"
+            helper_text_mode: "on_error"
+        JapaneseTextField:
+            id: selected_katakana
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            hint_text:"Katakana"
+            helper_text: "Enter Romaji of vocab"
+            helper_text_mode: "on_error"
+        MDTextField:
+            id: selected_english
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            hint_text:"English Meaning"
+            helper_text: "Enter English meaning of vocab"
+            helper_text_mode: "on_error"
+            input_type: "text"
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 0.8,0.5
+            pos_hint: {"center_x":.5, "center_y":.2}
+            MDRaisedButton:
+                id:selected_cancel
+                text:"Cancel"
+                size_hint: .5,1
+                md_bg_color: "#e63946"
+                on_press:
+                    root.manager.transition.direction = "right"
+            MDRaisedButton:
+                id:selected_save
+                text:"Save"
+                size_hint: .5,1
+                md_bg_color: "#a8dadc"
+<RandomVocabScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        padding: 10
+        MDLabel:
+            id: vocab
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.9}
+            text:"Random Vocab"
+            halign:"center"
+            font_style: "H3"
+        MDLabel:
+            id: random_description
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.5}
+            text:"This mode will choose a random vocabulary out of the database based on your statistics"
+            halign:"center"
+            font_style: "H5"
+
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 0.8,0.3
+            pos_hint: {"center_x":.5, "center_y":.2}
+            padding: 10
+            MDRectangleFlatButton:
+                id:back
+                text:"Back"
+                size_hint: .3,1
+                pos_hint: {"center_x":0, "center_y":.5}
+                text_color: 1,1,1,1
+                md_bg_color: app.theme_cls.primary_color
+                on_press:
+                    root.manager.current = "LandingScreen"
+                    root.manager.transition.direction = "right"
+            MDRectangleFlatButton:
+                id:randomvocab
+                text:"Start"
+                size_hint: .3,1
+                pos_hint: {"center_x":1, "center_y":.5}
+                text_color: 1,1,1,1
+                md_bg_color: app.theme_cls.primary_color
+                on_press:
+                    root.random_vocab()
+
+
+<VocabChooserScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        padding: 10
+        MDLabel:
+            id: vocab
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.95}
+            text:"Choose Vocab"
+            halign:"center"
+            font_style: "H3"
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 0.8,0.3
+            pos_hint: {"center_x":.5, "center_y":.5}
+            padding: 10
+            MDTextField:
+                id: selected_lesson
+                size_hint: .4,1
+                pos_hint: {"center_x":.4}
+                hint_text:"Lesson"
+                helper_text: "Enter lesson number"
+                helper_text_mode: "on_error"
+                input_type: "number"
+                required: True
+                on_text: start_button.disabled = not (selected_lesson.text and selected_part.text)
+            MDTextField:
+                id: selected_part
+                size_hint: .4,1
+                pos_hint: {"center_x":.6}
+                hint_text:"Part of Lesson"
+                helper_text: "Enter part number"
+                helper_text_mode: "on_error"
+                input_type: "number"
+                required: True
+                on_text: start_button.disabled = not (selected_lesson.text and selected_part.text)
+
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 0.8,0.3
+            pos_hint: {"center_x":.5, "center_y":.2}
+            padding: 10
+            MDRaisedButton:
+                id:back
+                text:"Back"
+                size_hint: .3,1
+                pos_hint: {"center_x":0, "center_y":.5}
+                md_bg_color: "#e63946"
+                on_press:
+                    root.clear_fields()
+                    root.manager.current = "LandingScreen"
+                    root.manager.transition.direction = "right"
+            MDRaisedButton:
+                id:start_button
+                text:"Start"
+                size_hint: .3,1
+                pos_hint: {"center_x":1, "center_y":.5}
+                md_bg_color: "#a8dadc"
+                disabled: True
+                on_press:
+                    root.choose_vocab()
+
+
+<VocabCardScreen>:
+    FitImage:
+        source:"material-design-abstract-4k_1608576664.jpg"
+    MDRaisedButton:
+        id : back
+        text:"Back"
+        size_hint: .1,.05
+        pos_hint: {"center_x":.1 , "center_y":.95}
+        md_bg_color: "#e63946"
+        on_press:
+            root.manager.current = "LandingScreen"
+            root.manager.transition.direction = "right"
+            root.clear_array()
+    MDCard:
+        size_hint: .6,.8
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation:"vertical"
+        padding: 10
+        MDLabel:
+            id: vocab
+            size_hint: .9,1
+            pos_hint: {"center_x":.5, "center_y":.9}
+            text:"Vocab Card"
+            halign:"center"
+            font_style: "H4"
+        MDLabel:
+            id: vocab_description
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.5}
+            text:""
+            halign:"center"
+            font_style: "H4"
+        MDLabel:
+            id: hiragana_label
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.3}
+            text:""
+            font_name: 'Japanese.ttc'
+            halign:"center"
+            color : 1,1,1,1
+        MDLabel:
+            id: katakana_label
+            size_hint: .5,1
+            pos_hint: {"center_x":.5, "center_y":.1}
+            text:""
+            font_name: 'Japanese.ttc'
+            halign:"center"
+            color : 1,1,1,1
+        MDRaisedButton:
+            id:show_japanese
+            text:"Show Japanese"
+            size_hint: .3,1
+            pos_hint: {"center_x":.5, "center_y":.4}
+            md_bg_color: "#a8dadc"
+            on_press:
+                root.toggle_japanese()
+        MDLabel:
+            id : question_label
+            size_hint: 1,1
+            pos_hint: {"center_x":.5, "center_y":.7}
+            text:"Did you get it right?"
+            halign:"center"
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 0.8,0.6
+            pos_hint: {"center_x":.5, "center_y":.2}
+            padding: 10
+            halign:"center"
+            MDRaisedButton:
+                id:wrong
+                text:"Wrong"
+                size_hint: .3,1
+                pos_hint: {"center_x":0, "center_y":.5}
+                md_bg_color: "red"
+                on_press:
+                    root.remove_points()
+
+            MDRaisedButton:
+                id:right
+                text:"Right"
+                size_hint: .3,1
+                pos_hint: {"center_x":1, "center_y":.5}
+                md_bg_color: "green"
+                on_press:
+                    root.add_points()
+
+
+
+
+
+
+
+
+
+

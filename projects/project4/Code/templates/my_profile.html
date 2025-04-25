@@ -1,0 +1,267 @@
+{% extends "base_template.html" %}
+{% block title %}CodeShare - Profile{% endblock %}
+{% block css %}
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center" style="margin-top: 160px;">
+        <div class="col-md-9">
+            <h1>Your Profile</h1>
+            <div class="row">
+                <div class="col-md-2">
+                    <img class="avatar float-right rounded-circle" src="https://picsum.photos/200"
+                         alt="Avatar Placeholder">
+                </div>
+                <div class="col-md-4" style="padding-top: 20px">
+                    <p>Username: <strong>{{ user.username }}</strong></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Total number of Posts:</p>
+                            <p>Total number of Likes:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ stats[0] }}</p>
+                            <p>{{ stats[1] }}</p>
+                        </div>
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">
+                            <i class="bi bi-file-lock-fill"></i> Change Password
+                        </button>
+                        <!-- Change password modal -->
+                        <div class="modal fade" id="changePasswordModal" tabindex="-1"
+                             aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{{ url_for('change_password') }}">
+                                            <div class="mb-3">
+                                                <label for="current_password" class="form-label">Current
+                                                    Password</label>
+                                                <input type="password" class="form-control" id="current_password"
+                                                       name="current_password" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="new_password" class="form-label">New Password</label>
+                                                <input type="password" class="form-control" id="new_password"
+                                                       name="new_password" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirm_password" class="form-label">Confirm
+                                                    Password</label>
+                                                <input type="password" class="form-control" id="confirm_password"
+                                                       name="confirm_password" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+            <hr>
+            <h2>Your Posts</h2>
+            {% if user.posts %}
+                {% for post in my_posts %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <h6 class="card-subtitle mb-2 text-muted">Date Posted: {{ post.datetime_posted }}</h6>
+                            <p class="card-text">{{ post.content }}</p>
+                            <pre><code class="language-{{ post.code_language }}">{{ post.code }}</code></pre>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3>Was this helpful?</h3>
+                                    <a href="/add_like/{{ post.id }}">
+                                        <button type="button" class="btn btn-outline-success btn-sm w-auto">
+                                            <i class="bi bi-hand-thumbs-up"></i>
+                                        </button>
+                                    </a>
+                                    <span class="badge bg-secondary">{{ post.like_count }}</span>
+                                    <a href="/add_dislike/{{ post.id }}">
+                                        <button type="button" class="btn btn-outline-danger btn-sm w-auto">
+                                            <i class="bi bi-hand-thumbs-down"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#editPostModal-{{ post.id }}">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                    <!-- Edit post modal -->
+                                    <div class="modal fade" id="editPostModal-{{ post.id }}" tabindex="-1"
+                                         aria-labelledby="editPostModalLabel-{{ post.id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editPostModalLabel-{{ post.id }}">Edit
+                                                        Post</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST"
+                                                          action="{{ url_for('edit_post', post_id=post.id) }}">
+                                                        <div class="mb-3">
+                                                            <label for="post_title" class="form-label">Title</label>
+                                                            <input type="text" class="form-control" id="post_title"
+                                                                   name="title" value="{{ post.title }}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="post_content" class="form-label">Content</label>
+                                                            <textarea class="form-control" id="post_content"
+                                                                      name="content" rows="5"
+                                                                      required>{{ post.content }}</textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="language" class="form-label">Code
+                                                                Language</label>
+                                                            <select class="form-select" id="language" name="language"
+                                                                    required>
+                                                                <option value="python">Python</option>
+                                                                <option value="javascript">JavaScript</option>
+                                                                <option value="html">HTML</option>
+                                                                <option value="css">CSS</option>
+                                                                <option value="java">Java</option>
+                                                                <option value="c">C</option>
+                                                                <option value="c++">C++</option>
+                                                                <option value="c#">C#</option>
+                                                                <option value="php">PHP</option>
+                                                                <option value="sql">SQL</option>
+                                                                <option value="bash">Bash</option>
+                                                                <option value="ruby">Ruby</option>
+                                                                <option value="swift">Swift</option>
+                                                                <option value="kotlin">Kotlin</option>
+                                                                <option value="go">Go</option>
+                                                                <option value="r">R</option>
+                                                                <option value="rust">Rust</option>
+                                                                <option value="scala">Scala</option>
+                                                                <option value="dart">Dart</option>
+                                                                <option value="typescript">TypeScript</option>
+                                                                <option value="other">Other</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3 d-none" id="other-language-input">
+                                                            <label for="other-language" class="form-label">Other
+                                                                Language</label>
+                                                            <input type="text" class="form-control" id="other-language"
+                                                                   name="other-language">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="post_code" class="form-label">Code</label>
+                                                            <textarea class="form-control" id="post_code" name="code"
+                                                                      rows="10" required>{{ post.code }}</textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        const languageSelect = document.querySelector("#language");
+                                        const otherLanguageInput = document.querySelector("#other-language-input");
+                                        const postLanguage = "{{ post.code_language }}";
+
+                                        // check if the post-language is in the list of options
+                                        const languageOptions = Array.from(languageSelect.options).map((option) => option.value);
+                                        const languageIndex = languageOptions.indexOf(postLanguage);
+                                        if (languageIndex === -1) {
+                                            // if the post language is not in the list, select "Other" and display the "Other" language input field
+                                            languageSelect.value = "other";
+                                            otherLanguageInput.classList.remove("d-none");
+                                            document.querySelector("#other-language").value = postLanguage
+                                        } else {
+                                            // if the post language is in the list, select the appropriate option and hide the "Other" language input field
+                                            languageSelect.selectedIndex = languageIndex;
+                                            if (postLanguage === "other") {
+                                                otherLanguageInput.classList.remove("d-none");
+                                            } else {
+                                                otherLanguageInput.classList.add("d-none");
+                                            }
+                                        }
+
+                                        // hide/show the "Other" language input field based on the selected value of the dropdown
+                                        languageSelect.addEventListener("change", () => {
+                                            if (languageSelect.value === "other") {
+                                                otherLanguageInput.classList.remove("d-none");
+                                            } else {
+                                                otherLanguageInput.classList.add("d-none");
+                                            }
+                                        });
+                                    </script>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-{{ post.id }}">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                    <!-- Delete post modal -->
+                                    <div class="modal fade" id="deleteModal-{{ post.id }}" tabindex="-1"
+                                         aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete the post "{{ post.title }}"?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancel
+                                                    </button>
+                                                    <a href="{{ url_for('delete_post', post_id=post.id) }}"
+                                                       class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>You have not posted anything yet.</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

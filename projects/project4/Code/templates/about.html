@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html id="page">
+<head>
+    <title>About Me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;"/>
+    <link href="https://unpkg.com/cirrus-ui" type="text/css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+
+    <style>
+        body {
+            background: linear-gradient(to right bottom, #ff5f6d, #ffc371);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px 0px 0px 8px;
+        }
+
+        .card-text {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            background-color: white;
+            border-radius: 0px 8px 8px 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="header header-fixed unselectable header-animated">
+    <div class="header-brand">
+        <div class="nav-item no-hover">
+            <a href="/"><h6 class="title">Bernard's First Website</h6></a>
+        </div>
+        <div class="nav-item nav-btn" id="header-btn"><span></span> <span></span> <span></span></div>
+    </div>
+    <div class="header-nav" id="header-menu">
+        <div class="nav-left">
+            <div class="nav-item text-center"><a href="#"> <span class="icon"> <i class="fab fa-wrapper fa-twitter"
+                                                                                  aria-hidden="true"></i> </span> </a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="nav-item has-sub toggle-hover" id="dropdown">
+                <a class="nav-dropdown-link">Menu</a>
+                <ul class="dropdown-menu dropdown-animated" role="menu">
+                    <li role="menu-item"><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section">
+    <div class="hero fullscreen">
+        <div class="hero-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-image">
+                            <img src="https://raw.githubusercontent.com/Bernard-LTW/unit4_repo/main/Lessons/FirstWebsite/templates/IMG_1419.jpeg" alt="Your Picture">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-text">
+                            <h1 class="font-size-xxxl mt-5">About Me</h1>
+                            <hr>
+                            <p class="font-size-lg">Hello, my name is Bernard Lee.
+                                I am a student in UWC ISAK Japan.</p>
+                            <p class="font-size-lg">If you have any questions or would like to get in touch with me,
+                                feel free to send me an email at <a href="mailto:2024.bernard.lee@uwcisak.jp">2024.bernard.lee@uwcisak.jp</a>.
+                            </p>
+                            <p class="font-size-lg">You can also find me on <a href="https://www.instagram.com/bernard_0501/"
+                                                                               class="text-blue-500">Instagram</a>.</p>
+                            <section class="section u-flex u-flex-column u-flex-center u-flex-middle">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <button class="text-blue-600 bg-blue-100 btn--xl">Hello!</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="footer">
+    <div class="content">
+        <p>Powered by Flask and Cirrus</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+#GUI Building Task 2 - KivyMD
+Screen:
+    size: 500,500
+    MDBoxLayout:
+        id: main_box
+        orientation: 'vertical'
+        size_hint:1,.8
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        MDLabel:
+            text: 'Bit/Byte Converter'
+            halign: 'center'
+            theme_text_color: 'Custom'
+            text_color: 0,0,0,1
+            font_style: 'H4'
+            size_hint: 1, .2
+        MDBoxLayout:
+            id: byte_box
+            orientation: 'horizontal'
+            size_hint: 1, .2
+            padding: 10
+            MDTextField:
+                id: byte_in
+                hint_text: 'Enter Bytes'
+                helper_text: 'Enter Bytes'
+                helper_text_mode: 'on_focus'
+            MDRaisedButton:
+                id: byte_button
+                text: 'Convert to Bits'
+                on_press: app.byte2bit()
+        MDBoxLayout:
+            id: bit_box
+            orientation: 'horizontal'
+            size_hint: 1, .2
+            padding: 10
+            MDTextField:
+                id: bit_in
+                hint_text: 'Enter Bits'
+                helper_text: 'Enter Bits'
+                helper_text_mode: 'on_focus'
+            MDRaisedButton:
+                id: bit_button
+                text: 'Convert to Bytes'
+                on_press: app.bit2byte()
+
+        MDLabel:
+            id: output_label
+            text: 'Ready!'
+            halign: 'center'
+            theme_text_color: 'Custom'
+            text_color: 0,0,0,1
+            font_style: 'H4'
+            size_hint: 1, .2

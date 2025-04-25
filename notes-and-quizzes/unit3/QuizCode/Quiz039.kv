@@ -1,0 +1,21 @@
+#2023-01-27 Quiz 039
+Screen:
+    size: 500,500
+    MDBoxLayout:
+        id: main_box
+        orientation: 'horizontal'
+        size_hint:.7,.3
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        md_bg_color: "#a8dadc"
+
+        MDLabel:
+            id : counter_label
+            font_size: '34'
+            size_hint:.5,1
+            text: 'Ready!'
+        MDRaisedButton:
+            id: up
+            text: 'Count +1'
+            font_size: '34'
+            size_hint:.5,1
+            on_press: app.add()

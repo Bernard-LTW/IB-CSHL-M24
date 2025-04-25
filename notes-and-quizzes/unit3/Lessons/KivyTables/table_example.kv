@@ -1,0 +1,42 @@
+ScreenManager:
+    TableScreen:
+        name: "TableScreen"
+
+<TableScreen>:
+    MDLabel:
+        text: "Bitcoin Exchange"
+        font_size : 20
+        halign: "center"
+        pos_hint: {"center_x": .5, "center_y": .9}
+        font_style: "H2"
+    MDRaisedButton:
+        id : delete
+        text: "Delete"
+        pos_hint: {"center_x": .5, "center_y": .8}
+        on_press:
+            root.delete()
+
+    MDBoxLayout:
+        orientation:"horizontal"
+        size_hint:1,.2
+
+        MDTextField:
+            id:sender
+            hint_text : "Sender_id"
+            filter: "int"
+
+        MDTextField:
+            id:receiver
+            hint_text : "Receiver_id"
+            filter: "int"
+
+        MDTextField:
+            id:amount
+            hint_text : "Amount"
+            filter: "int"
+
+        MDRaisedButton:
+            id : add
+            text: "New TX"
+            on_press:
+                root.save()

@@ -1,0 +1,178 @@
+ScreenManager:
+    id:scr_manager
+
+    IntroScreen:
+        name: 'intro'
+
+    PrepareDough:
+        name: 'prepare_dough'
+
+    PrebakeDough:
+        name: 'prebake_dough'
+
+    PutOnToppings:
+        name: 'put_on_toppings'
+
+    BakePizza:
+        name: 'bake_pizza'
+
+    EatPizza:
+        name: 'eat_pizza'
+
+<IntroScreen>:
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Pizza Tutorial"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_whole_quarter.png"
+            size_hint: 1, .7
+        MDRaisedButton:
+            text:"Start"
+            on_release: root.parent.current = 'prepare_dough'
+            pos_hint: {'center_x': .5}
+            md_bg_color: 0.4,0.4,0,0.5
+<PrepareDough>
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Prepare the Dough"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_dough.jpeg"
+            size_hint: 1, .7
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text:"Back"
+                on_release: root.parent.current = 'intro'
+                #pos_hint: {'center_x': .4}
+                md_bg_color: 0.4,0.4,0,0.5
+            MDRaisedButton:
+                text:"Next"
+                on_release: root.parent.current = 'prebake_dough'
+                #pos_hint: {'center_x': .6}
+                md_bg_color: 0.4,0.4,0,0.5
+
+<PrebakeDough>
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Prebake the Dough"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_prebake.jpeg"
+            size_hint: 1, .7
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text:"Back"
+                on_release: root.parent.current = 'prepare_dough'
+                #pos_hint: {'center_x': .4}
+                md_bg_color: 0.4,0.4,0,0.5
+            MDRaisedButton:
+                text:"Next"
+                on_release: root.parent.current = 'put_on_toppings'
+                #pos_hint: {'center_x': .6}
+                md_bg_color: 0,0.4,0.4,0.5
+
+<PutOnToppings>:
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Put on the Toppings"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_toppings.jpg"
+            size_hint: 1, .7
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text:"Back"
+                on_release: root.parent.current = 'prebake_dough'
+                #pos_hint: {'center_x': .4}
+                md_bg_color: 0.4,0.4,0,0.5
+            MDRaisedButton:
+                text:"Next"
+                on_release: root.parent.current = 'bake_pizza'
+                #pos_hint: {'center_x': .6}
+                md_bg_color: 0,0.4,0.4,0.5
+<BakePizza>:
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Bake the Pizza"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_bake.jpg"
+            size_hint: 1, .7
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text:"Back"
+                on_release: root.parent.current = 'put_on_toppings'
+                #pos_hint: {'center_x': .4}
+                md_bg_color: 0.4,0.4,0,0.5
+            MDRaisedButton:
+                text:"Next"
+                on_release: root.parent.current = 'eat_pizza'
+                #pos_hint: {'center_x': .6}
+                md_bg_color: 0,0.4,0.4,0.5
+
+<EatPizza>:
+    MDCard:
+        size_hint: .7, .7
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        md_bg_color: 0.4,0.4,0,0.5
+        orientation: 'vertical'
+        MDLabel:
+            text:"Eat the Pizza"
+            font_style:"H5"
+            halign:"center"
+            size_hint: 1, .1
+        FitImage:
+            source: "food_pizza_eat.jpg"
+            size_hint: 1, .7
+        MDBoxLayout:
+            orientation:"horizontal"
+            size_hint: 1, .2
+            MDRaisedButton:
+                text:"Back"
+                on_release: root.parent.current = 'bake_pizza'
+                #pos_hint: {'center_x': .4}
+                md_bg_color: 0.4,0.4,0,0.5
+            MDRaisedButton:
+                text:"Next"
+                on_release: root.parent.current = 'intro'
+                #pos_hint: {'center_x': .6}
+                md_bg_color: 0,0.4,0.4,0.5
